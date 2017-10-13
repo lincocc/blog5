@@ -10,12 +10,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return '%s#%s' % (reverse('blog:category'), self.name)
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return '%s#%s' % (reverse('blog:tag'), self.name)
 
 
 class Post(models.Model):

@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% block title %}Tags{% endblock %}
+{% block body %}
+    <div class="uk-container">
+        <ul uk-accordion="multiple: true">
+            {% for tag in tags %}
+                <li class="uk-open">
+                    <h3 class="uk-accordion-title" id="{{ tag.name }}">{{ tag.name }}</h3>
+                    <div class="uk-accordion-content">
+                        <ul>
+                            {% for post in tag.post_set.all %}
+                                <li><a href="{{ post.get_absolute_url }}" class="uk-link-reset uk-button-text">{{ post.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -15,9 +15,9 @@
             <div class="uk-navbar-left">
                 <ul class="uk-navbar-nav">
                     <li><a href="{% url 'blog:index' %}">Blog</a></li>
-                    <li><a href="#">Tag</a></li>
-                    <li><a href="#">Category</a></li>
-                    <li><a href="#">Achieve</a></li>
+                    <li><a href="{% url 'blog:tag' %}">Tag</a></li>
+                    <li><a href="{% url 'blog:category' %}">Category</a></li>
+                    <li><a href="{% url 'blog:archive' %}">Achieve</a></li>
                 </ul>
             </div>
         </nav>
