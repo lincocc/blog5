@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Blog{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/css/uikit.min.css"/>
+    {% block beforehead %}{% endblock %}
+
+</head>
+<body>
+<div class="uk-navbar-container">
+    <div class="uk-container uk-container-expand">
+        <nav class="" uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li><a href="{% url 'blog:index' %}">Blog</a></li>
+                    <li><a href="#">Tag</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li><a href="#">Achieve</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+{% block body %}{% endblock %}
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js"></script>
+</body>
+</html>

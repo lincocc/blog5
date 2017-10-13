@@ -1,6 +1,22 @@
-<ul>
+{% extends 'blog/base.html' %}
+
+{% block body %}
+    <div class="uk-container">
     {% for post in posts %}
-        {{ post.title }}
+    <article class="uk-article">
+        <h1 class="uk-article-title"><a class="uk-link-reset" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+        <p class="uk-article-meta">Written by {{ post.author.username }} on {{ post.created_time }}, {{ post.views }} views</p>
+        <p>{{ post.excerpt }}</p>
+        <div class="uk-grid-small uk-child-width-auto" uk-grid>
+            <div>
+                <a class="uk-button uk-button-text" href="{{ post.get_absolute_url }}">Read more</a>
+            </div>
+            <div>
+                <a class="uk-button uk-button-text"></a>
+            </div>
+        </div>
+    </article>
     {% endfor %}
-</ul>
+    </div>
+{% endblock %}
 

@@ -1,2 +1,11 @@
-<h3>{{ post.title }}</h3>
-<p>{{ post.body }}</p>
+{% extends 'blog/base.html' %}
+{% block body %}
+    <div class="uk-container">
+        <article class="uk-article">
+            <h1 class="uk-article-title">{{ post.title }}</h1>
+            <p class="uk-article-meta">Written by {{ post.author.username }}
+                on {{ post.created_time }}, {{ post.views }}views</p>
+            <p>{{ post.body }}</p>
+        </article>
+    </div>
+{% endblock %}
