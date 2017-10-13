@@ -10,6 +10,10 @@ from web import settings
 
 
 def fake_data():
+    Tag.objects.all().delete()
+    Category.objects.all().delete()
+    Post.objects.all().delete()
+
     user = User.objects.all().first()
 
     tag = ('django', 'python', 'java', 'javascript', 'css', 'html', 'web', 'app')
