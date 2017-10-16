@@ -1,0 +1,26 @@
+{% load paginator %}
+{% if pagination_required %}
+    <ul class="uk-pagination">
+        {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}"><span uk-pagination-previous></span></a></li>
+        {% else %}
+            <li><a><span uk-pagination-previous></span></a></li>
+        {% endif %}
+        {% for page in page_range %}
+            {% if page is not None %}
+                {% if page == page_num %}
+                    <li class="uk-active"><span>{{ page }}</span></li>
+                {% else %}
+                    <li><a href="?page={{ page }}">{{ page }}</a></li>
+                {% endif %}
+            {% else %}
+                <li><span>...</span></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}"><span uk-pagination-next></span></a></li>
+        {% else %}
+            <li><a><span uk-pagination-next></span></a></li>
+        {% endif %}
+    </ul>
+{% endif %}

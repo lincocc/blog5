@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
-
+{% load paginator %}
 {% block body %}
-    <div class="uk-container">
+    <div class="uk-container uk-margin-top">
     {% for post in posts %}
     <article class="uk-article">
         <h1 class="uk-article-title"><a class="uk-link-reset" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
@@ -17,6 +17,9 @@
         </div>
     </article>
     {% endfor %}
+    <div class="uk-margin-top uk-margin-bottom">
+        {% pagination %}
+    </div>
     </div>
 {% endblock %}
 
