@@ -50,6 +50,20 @@
                 </ul>
                 <hr>
 
+                {% get_tags as tags %}
+                <ul class="uk-nav uk-nav-default">
+                    <li class="uk-nav-header">标签</li>
+                    <li><p>
+                        {% for tag in tags %}
+                            <a href="{{ tag.get_absolute_url }}"
+                               class="uk-button uk-button-small uk-button-default uk-text-muted uk-margin-small-bottom"
+                               style="border-radius: 500px">{{ tag.name }}</a>
+                        {% endfor %}
+                    </p>
+                    </li>
+                </ul>
+                <hr>
+
                 <ul class="uk-nav uk-nav-default">
                     <li class="uk-nav-header">文章存档</li>
                     {% regroup paginator.object_list by created_time.year as posts_by_year %}
@@ -57,6 +71,7 @@
                         {% regroup year.list by created_time.month as posts_by_month %}
                         {% for month in posts_by_month %}
                             <li><a href="{% url 'blog:archive' %}#
+
                                     {{ year.grouper }}{{ month.grouper|stringformat:'02d' }}">{{ year.grouper }}年{{ month.grouper }}月
                                 ({{ month.list|length }})</a></li>
                         {% endfor %}
