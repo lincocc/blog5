@@ -1,6 +1,7 @@
 import markdown
 from django.db.models import Count
 from django.shortcuts import render
+from django.utils.text import slugify
 from django.views.generic import ListView, DetailView
 
 from blog.models import Post, Category, Tag
@@ -28,8 +29,16 @@ class PostView(DetailView):
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
-        ])
+            'markdown.extensions.toc'
+        ], extension_configs={
+            'markdown.extensions.toc': {
+                'anchorlink': True,
+                'baselevel': 3,
+                'slugify': slugify
+            },
+        })
         post.body = md.convert(post.body)
+        post.toc = md.toc
         return post
 
 
