@@ -1,3 +1,4 @@
+import markdown
 from django.db.models import Count
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
@@ -21,6 +22,15 @@ class PostView(DetailView):
         response = super(PostView, self).get(self, request, *args, **kwargs)
         self.object.increase_views()
         return response
+
+    def get_object(self, queryset=None):
+        post = super(PostView, self).get_object(queryset)
+        md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+        ])
+        post.body = md.convert(post.body)
+        return post
 
 
 class TagView(ListView):
