@@ -17,6 +17,11 @@ class PostView(DetailView):
     context_object_name = 'post'
     template_name = 'blog/detail.html'
 
+    def get(self, request, *args, **kwargs):
+        response = super(PostView, self).get(self, request, *args, **kwargs)
+        self.object.increase_views()
+        return response
+
 
 class TagView(ListView):
     # model = Tag

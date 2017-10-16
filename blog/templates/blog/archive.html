@@ -5,14 +5,14 @@
     {% regroup posts by created_time.year as posts_by_year %}
     <ul>
         {% for year in posts_by_year %}
-            <li>{{ year.grouper }}
+            <li>{{ year.grouper }}年
             {% regroup year.list by created_time.month as posts_by_month %}
             <ul>
                 {% for month in posts_by_month %}
-                    <li id="{{ year.grouper }}{{ month.grouper|stringformat:'02d' }}">{{ month.grouper }}
+                    <li id="{{ year.grouper }}{{ month.grouper|stringformat:'02d' }}">{{ month.grouper }}月
                         <ul>
                             {% for post in month.list %}
-                                <li>{{ post.created_time.day }} <a href="{{ post.get_absolute_url }}" class="uk-link-reset uk-button-text">{{ post.title }}</a> </li>
+                                <li>{{ post.created_time.day }}日 <a href="{{ post.get_absolute_url }}" class="uk-link-reset uk-button-text">{{ post.title }}</a> </li>
                             {% endfor %}
                         </ul>
                     </li>

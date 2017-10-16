@@ -1,25 +1,69 @@
 {% extends 'blog/base.html' %}
 {% load paginator %}
+{% load post_tags %}
 {% block body %}
-    <div class="uk-container uk-margin-top">
-    {% for post in posts %}
-    <article class="uk-article">
-        <h1 class="uk-article-title"><a class="uk-link-reset" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
-        <p class="uk-article-meta">Written by {{ post.author.username }} on {{ post.created_time }}, {{ post.views }} views</p>
-        <p>{{ post.excerpt }}</p>
-        <div class="uk-grid-small uk-child-width-auto" uk-grid>
-            <div>
-                <a class="uk-button uk-button-text" href="{{ post.get_absolute_url }}">Read more</a>
-            </div>
-            <div>
-                <a class="uk-button uk-button-text"></a>
+
+    <div class="uk-grid uk-margin-top">
+        <div class="uk-width-3-4">
+            <div class="uk-container">
+                {% for post in posts %}
+                    <article class="uk-article">
+                        <h1 class="uk-article-title"><a class="uk-link-reset"
+                                                        href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+                        <p class="uk-article-meta">Written by {{ post.author.username }}
+                            on {{ post.created_time }}, {{ post.views }} views</p>
+                        <p>{{ post.excerpt }}</p>
+                        <div class="uk-grid-small uk-child-width-auto" uk-grid>
+                            <div>
+                                <a class="uk-button uk-button-text" href="{{ post.get_absolute_url }}">Read more</a>
+                            </div>
+                            <div>
+                                <a class="uk-button uk-button-text"></a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+                <div class="uk-margin-top uk-margin-bottom">
+                    {% pagination %}
+                </div>
             </div>
         </div>
-    </article>
-    {% endfor %}
-    <div class="uk-margin-top uk-margin-bottom">
-        {% pagination %}
-    </div>
+
+        <div class="uk-width-1-4">
+            <div class="uk-container">
+                {% get_most_read_post as most_read_post %}
+                <ul class="uk-nav uk-nav-default">
+                    <li class="uk-nav-header">阅读排行</li>
+                    {% for p in most_read_post %}
+                        <li><a href="{{ p.get_absolute_url }}">{{ p.title }} ({{ p.views }})</a></li>
+                    {% endfor %}
+                </ul>
+                <hr>
+
+                {% get_categories as categories %}
+                <ul class="uk-nav uk-nav-default">
+                    <li class="uk-nav-header">文章分类</li>
+                    {% for category in categories %}
+                        <li><a href="{{ category.get_absolute_url }}">{{ category.name }} ({{ category.post_set.count }})</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+
+                <ul class="uk-nav uk-nav-default">
+                    <li class="uk-nav-header">文章存档</li>
+                    {% regroup paginator.object_list by created_time.year as posts_by_year %}
+                    {% for year in posts_by_year %}
+                        {% regroup year.list by created_time.month as posts_by_month %}
+                        {% for month in posts_by_month %}
+                            <li><a href="{% url 'blog:archive' %}#
+                                    {{ year.grouper }}{{ month.grouper|stringformat:'02d' }}">{{ year.grouper }}年{{ month.grouper }}月
+                                ({{ month.list|length }})</a></li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
