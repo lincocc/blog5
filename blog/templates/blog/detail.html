@@ -8,12 +8,28 @@
     <div class="uk-grid uk-margin-top">
         <div class="uk-width-3-4">
             <div class="uk-container">
+
                 <article class="uk-article">
                     <h1 class="uk-article-title">{{ post.title }}</h1>
                     <p class="uk-article-meta">Written by {{ post.author.username }}
                         on {{ post.created_time }}, {{ post.views }} views</p>
                     {{ post.body|safe }}
                 </article>
+
+                <ul class="uk-comment-list">
+                    {% for c in post.comments %}
+                    <li class="uk-margin-small-top">
+                        {% include 'blog/comment.html' with comment=c level=1 counter=forloop.revcounter %}
+                        <ul class="uk-margin-small-top">
+                            {% for cc in c.children.all %}
+                                <li class="uk-margin-small-top">
+                                    {% include 'blog/comment.html' with comment=cc level=2 %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
         <div class="uk-width-1-4">
@@ -21,11 +37,8 @@
                 {{ post.toc|safe }}
             </div>
         </div>
-        <ul class="uk-nav uk-nav-default">
-        <li class="uk-active"><a href="#">Active</a></li>
-        <li><a href="#">Item</a></li>
-        <li><a href="#">Item</a></li>
-    </ul>
+
+
     </div>
 
 {% endblock %}

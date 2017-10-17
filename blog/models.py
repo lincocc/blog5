@@ -47,3 +47,17 @@ class Post(models.Model):
     def increase_views(self):
         self.views += 1
         self.save(update_fields=['views'])
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User)
+    content = models.TextField()
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.SET_NULL)
+    post = models.ForeignKey(Post)
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        ordering = ['-created_time']

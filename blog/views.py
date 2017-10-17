@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView
 
-from blog.models import Post, Category, Tag
+from blog.models import Post, Category, Tag, Comment
 
 
 class IndexView(ListView):
@@ -39,6 +39,7 @@ class PostView(DetailView):
         })
         post.body = md.convert(post.body)
         post.toc = md.toc
+        post.comments = post.comment_set.all().filter(parent=None).order_by('-created_time')
         return post
 
 
