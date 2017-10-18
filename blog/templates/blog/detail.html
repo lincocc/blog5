@@ -1,5 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block title %}{{ post.title }}{% endblock %}
+{% load post_tags %}
 {% block beforehead %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'blog/css/highlights/code.css' %}" />
@@ -20,7 +21,7 @@
                     <header class="uk-comment-header uk-position-relative">
                         <div class="uk-grid-medium uk-flex-middle" uk-grid>
                             <div class="uk-width-auto">
-                                <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg" width="80" height="80" alt="">
+                                <img class="uk-comment-avatar" src="{% get_avatar_url user %}" width="80" height="80" alt="">
                             </div>
                             <div class="uk-width-expand">
                                 <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ user.username }}</a></h4>
@@ -69,12 +70,14 @@
 {% endblock %}
 {% block afterbody %}
     <script>
-        $('#reply_button').click(function () {
+        $('.reply_button').click(function () {
+            console.log("onclick!!");
             $('#replay_comment_id').val($(this).data('id'));
             $('#replay_comment_content').val('[reply]'+$(this).data('username')+'[/reply]\n');
         });
 
         function onSubmitComment() {
+
             var content = $('#replay_comment_content').val();
             var newstr = content.replace(/^\[reply\].*?\[\/reply\]\n/, '');
             if (newstr) {

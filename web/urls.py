@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from blog.views import IndexView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^$', IndexView.as_view())
 ]

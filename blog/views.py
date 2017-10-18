@@ -25,6 +25,7 @@ class PostView(DetailView):
     def get(self, request, *args, **kwargs):
         response = super(PostView, self).get(request, *args, **kwargs)
         self.object.increase_views()
+
         return response
 
     def get_object(self, queryset=None):
