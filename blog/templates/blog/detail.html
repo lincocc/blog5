@@ -15,6 +15,31 @@
                         on {{ post.created_time }}, {{ post.views }} views</p>
                     {{ post.body|safe }}
                 </article>
+                <hr class="uk-divider-icon">
+                <article class="uk-comment uk-comment-primary" id="reply">
+                    <header class="uk-comment-header uk-position-relative">
+                        <div class="uk-grid-medium uk-flex-middle" uk-grid>
+                            <div class="uk-width-auto">
+                                <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg" width="80" height="80" alt="">
+                            </div>
+                            <div class="uk-width-expand">
+                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ user.username }}</a></h4>
+                            </div>
+                        </div>
+
+                    </header>
+                    <div class="uk-comment-body">
+                        <form class="uk-form-controls" method="post" onsubmit="return onSubmitComment()">
+                            {% csrf_token %}
+                            <textarea name="{{ form.content.name }}" class="uk-textarea" rows="6" id="replay_comment_content" required></textarea>
+                            <input type="hidden" name="{{ form.parent.name }}" id="replay_comment_id">
+                            <input type="hidden" name="{{ form.user.name }}" value="{{ user.id }}">
+                            <input type="hidden" name="{{ form.post.name }}" value="{{ post.id }}">
+                            <button class="uk-button uk-button-default uk-margin-medium-top uk-align-right uk-margin-small-right">submit</button>
+                        </form>
+
+                    </div>
+                </article>
 
                 <ul class="uk-comment-list">
                     {% for c in post.comments %}
@@ -41,4 +66,25 @@
 
     </div>
 
+{% endblock %}
+{% block afterbody %}
+    <script>
+        $('#reply_button').click(function () {
+            $('#replay_comment_id').val($(this).data('id'));
+            $('#replay_comment_content').val('[reply]'+$(this).data('username')+'[/reply]\n');
+        });
+
+        function onSubmitComment() {
+            var content = $('#replay_comment_content').val();
+            var newstr = content.replace(/^\[reply\].*?\[\/reply\]\n/, '');
+            if (newstr) {
+                if (newstr === content) {
+                    $('#replay_comment_id').val('');
+                }
+                $('#replay_comment_content').val(newstr);
+                return true;
+            }
+            return false;
+        }
+    </script>
 {% endblock %}

@@ -2,16 +2,25 @@
     <header class="uk-comment-header uk-position-relative">
         <div class="uk-grid-medium uk-flex-middle" uk-grid>
             <div class="uk-width-auto">
-                <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg" width="80" height="80" alt="">
+                <img class="uk-comment-avatar" src="https://getuikit.com/docs/images/avatar.jpg" width="80" height="80"
+                     alt="">
             </div>
             <div class="uk-width-expand">
-                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ comment.user.username }}</a></h4>
-                <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">{{ comment.created_time }}</a></p>
+                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
+                                                                 href="#">{{ comment.user.username }}</a></h4>
+                <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset"
+                                                                   href="#">{{ comment.created_time }}</a></p>
             </div>
         </div>
         {% if level == 1 %}
-            <div class="uk-position-bottom-right uk-position-small"><span class="uk-link-muted" href="#">#{{ counter }}</span></div>
-            <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">Reply</a></div>
+            <div class="uk-position-bottom-right uk-position-small"><span class="uk-link-muted"
+                                                                          href="#">#{{ counter }}</span></div>
+            <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted"
+                                                                                    id="reply_button"
+                                                                                    href="#reply"
+                                                                                    data-id="{{ comment.id }}"
+                                                                                    data-username="{{ comment.user }}">Reply</a>
+            </div>
         {% endif %}
     </header>
     <div class="uk-comment-body">

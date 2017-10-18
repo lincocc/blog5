@@ -1,9 +1,12 @@
 import markdown
+import re
+from django.contrib.auth.models import User
 from django.db.models import Count
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView
 
+from blog.forms import CommentForm
 from blog.models import Post, Category, Tag, Comment
 
 
@@ -20,7 +23,7 @@ class PostView(DetailView):
     template_name = 'blog/detail.html'
 
     def get(self, request, *args, **kwargs):
-        response = super(PostView, self).get(self, request, *args, **kwargs)
+        response = super(PostView, self).get(request, *args, **kwargs)
         self.object.increase_views()
         return response
 
@@ -41,6 +44,30 @@ class PostView(DetailView):
         post.toc = md.toc
         post.comments = post.comment_set.all().filter(parent=None).order_by('-created_time')
         return post
+
+    def get_context_data(self, **kwargs):
+        context = super(PostView, self).get_context_data(**kwargs)
+        form = CommentForm()
+        context.update({'form': form})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        obj = self.get_object()
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+
+            # if comment.parent is not None:
+            #     comment.content, count = re.subn(r'^\[reply\].*?\[/reply\]', '', comment.content, 1)
+            #     if not comment.content:
+            #         return redirect(obj)
+            #
+            #     if count is 0:
+            #         comment.parent = None
+
+            comment.save()
+        return redirect(obj)
 
 
 class TagView(ListView):
