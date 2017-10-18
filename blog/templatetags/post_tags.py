@@ -33,7 +33,8 @@ def get_most_read_post(num=5):
 
 @register.simple_tag
 def get_avatar_url(user):
-    socialaccount = user.socialaccount_set.first()
-    if socialaccount:
-        return socialaccount.get_avatar_url()
+    if hasattr(user, 'socialaccount_set'):
+        socialaccount = user.socialaccount_set.first()
+        if socialaccount:
+            return socialaccount.get_avatar_url()
     return 'https://getuikit.com/docs/images/avatar.jpg'

@@ -8,6 +8,7 @@
     {% block beforehead %}{% endblock %}
 
 </head>
+{% load account %}
 <body>
 <div class="uk-navbar-container">
     <div class="uk-container uk-container-expand">
@@ -20,6 +21,24 @@
                     <li><a href="{% url 'blog:archive' %}">Achieve</a></li>
                 </ul>
             </div>
+
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="#">{% user_display user %}</a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'account_login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
         </nav>
     </div>
 </div>

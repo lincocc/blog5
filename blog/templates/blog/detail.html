@@ -17,6 +17,7 @@
                     {{ post.body|safe }}
                 </article>
                 <hr class="uk-divider-icon">
+                {% if user.is_authenticated %}
                 <article class="uk-comment uk-comment-primary" id="reply">
                     <header class="uk-comment-header uk-position-relative">
                         <div class="uk-grid-medium uk-flex-middle" uk-grid>
@@ -41,7 +42,7 @@
 
                     </div>
                 </article>
-
+                {% endif %}
                 <ul class="uk-comment-list">
                     {% for c in post.comments %}
                     <li class="uk-margin-small-top">
