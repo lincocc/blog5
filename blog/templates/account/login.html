@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+{% block body %}
+    <div class="uk-container uk-container-small uk-flex uk-flex-center uk-flex-middle uk-margin-medium">
+        <div>
+            <h3>使用第三方账户账户登录</h3>
+            {% get_providers as socialaccount_providers %}
+            {% if socialaccount_providers %}
+                <div class="uk-flex uk-flex-center">
+                    <ul class="uk-iconnav">
+                        {% for provider in socialaccount_providers %}
+                            {% if provider.id == "openid" %}
+                                {% for brand in provider.get_brands %}
+                                    <li>
+                                        <a title="{{ brand.name }}"
+                                           class="socialaccount_provider {{ provider.id }} {{ brand.id }}"
+                                           href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+                                        >{{ brand.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                            <li>
+                                <a title="{{ provider.name }}" class="uk-link-muted"
+                                   href="{% provider_login_url provider.id process="login" scope=scope auth_params=auth_params %}">
+                                    <i class="fa fa-github fa-2x"></i>
+                                </a>
+                            </li>
+                        {% endfor %}
+                        <li>
+                            <a title="admin" class="uk-link-muted" href="{% url 'admin:login' %}">
+                                <i class="fa fa-sign-in fa-2x"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+                {% providers_media_js %}
+            {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Social Network Login Failure" %}{% endblock %}
+
+{% block body %}
+    <div class="uk-container uk-container-small uk-margin-medium">
+        <h1>{% trans "Social Network Login Failure" %}</h1>
+        <p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
+        <p>Code: {{ auth_error.code }}</p>
+        <p>Error: {{ auth_error.exception }}</p>
+    </div>
+{% endblock %}
