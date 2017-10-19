@@ -1,5 +1,6 @@
 from django.conf.urls import url
 
+from blog.feeds import LatestPostFeed
 from . import views
 
 urlpatterns = [
@@ -8,4 +9,5 @@ urlpatterns = [
     url(r'^tag/$', views.TagView.as_view(), name='tag'),
     url(r'^category/$', views.CategoryView.as_view(), name='category'),
     url(r'^archive/$', views.ArchiveView.as_view(), name='archive'),
+    url(r'^latest/feed/$', LatestPostFeed()),
 ]
