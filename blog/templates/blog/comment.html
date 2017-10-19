@@ -1,27 +1,27 @@
 {% load post_tags %}
-<article class="uk-comment uk-comment-primary uk-visible-toggle">
+<article class="uk-comment uk-comment-primary uk-visible-toggle uk-padding-small">
     <header class="uk-comment-header uk-position-relative">
         <div class="uk-grid-medium uk-flex-middle" uk-grid>
             <div class="uk-width-auto">
-                <img class="uk-comment-avatar" src="{% get_avatar_url comment.user %}" width="80" height="80"
+                <img class="uk-comment-avatar" src="{% get_avatar_url comment.user %}" width="64" height="64"
                      alt="">
             </div>
             <div class="uk-width-expand">
                 <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset"
                                                                  href="#">{{ comment.user.username }}</a></h4>
-                <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset"
-                                                                   href="#">{{ comment.created_time }}</a></p>
+                <p class="uk-comment-meta uk-margin-remove-top"></p>
+                <ul class="uk-comment-meta uk-subnav uk-margin-remove-top">
+                    <li><a class="uk-link-reset" href="#">{{ comment.created_time }}</a></li>
+                    {% if level == 1 %}
+                    <li><a class="uk-link-muted uk-hidden-hover reply_button" href="#reply" data-id="{{ comment.id }}"
+                                  data-username="{{ comment.user }}">Reply</a></li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
         {% if level == 1 %}
             <div class="uk-position-bottom-right uk-position-small"><span class="uk-link-muted"
                                                                           href="#">#{{ counter }}</span></div>
-            <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted reply_button"
-
-                                                                                    href="#reply"
-                                                                                    data-id="{{ comment.id }}"
-                                                                                    data-username="{{ comment.user }}">Reply</a>
-            </div>
         {% endif %}
     </header>
     <div class="uk-comment-body">

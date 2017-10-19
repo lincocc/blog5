@@ -48,7 +48,7 @@
                     <li class="uk-margin-small-top">
                         {% include 'blog/comment.html' with comment=c level=1 counter=forloop.revcounter %}
                         <ul class="uk-margin-small-top">
-                            {% for cc in c.children.all %}
+                            {% for cc in c.children.all|dictsort:'created_time' %}
                                 <li class="uk-margin-small-top">
                                     {% include 'blog/comment.html' with comment=cc level=2 %}
                                 </li>
