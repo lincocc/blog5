@@ -25,7 +25,7 @@
                                 <img class="uk-comment-avatar" src="{% get_avatar_url user %}" width="80" height="80" alt="">
                             </div>
                             <div class="uk-width-expand">
-                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">{{ user.username }}</a></h4>
+                                <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="{% get_profile_url user %}" target="_blank">{{ user.username }}</a></h4>
                             </div>
                         </div>
 
