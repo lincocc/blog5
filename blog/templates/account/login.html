@@ -26,7 +26,7 @@
                             <li>
                                 <a title="{{ provider.name }}" class="uk-link-muted"
                                    href="{% provider_login_url provider.id process="login" scope=scope auth_params=auth_params %}">
-                                    <i class="fa fa-github fa-2x"></i>
+                                    <i class="fa fa-{{ provider.name|lower }} fa-2x"></i>
                                 </a>
                             </li>
                         {% endfor %}
