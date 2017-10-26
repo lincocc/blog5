@@ -44,18 +44,16 @@
                 </article>
                 {% endif %}
                 <ul class="uk-comment-list">
-                    {% for c in post.comments %}
-                    <li class="uk-margin-small-top">
-                        {% include 'blog/comment.html' with comment=c level=1 counter=forloop.revcounter %}
-                        <ul class="uk-margin-small-top">
-                            {% for cc in c.children.all|dictsort:'created_time' %}
-                                <li class="uk-margin-small-top">
-                                    {% include 'blog/comment.html' with comment=cc level=2 %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    {% endfor %}
+                    {% recursetree post.comments %}
+                        <li class="uk-margin-small-top">
+                            {% include 'blog/comment.html' with comment=node counter=revcounter %}
+                            {% if not node.is_leaf_node %}
+                                <ul class="uk-comment-list uk-margin-small-top" style="padding-left: 4%">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endrecursetree %}
                 </ul>
             </div>
         </div>

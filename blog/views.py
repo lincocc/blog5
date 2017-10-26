@@ -2,12 +2,14 @@ import markdown
 import re
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView
 
 from blog.forms import CommentForm
-from blog.models import Post, Category, Tag, Comment
+from blog.models import Post, Category, Tag, Comments
 
 
 class IndexView(ListView):
@@ -43,7 +45,7 @@ class PostView(DetailView):
         })
         post.body = md.convert(post.body)
         post.toc = md.toc
-        post.comments = post.comment_set.all().filter(parent=None).order_by('-created_time')
+        post.comments = post.comments_set.all()
         return post
 
     def get_context_data(self, **kwargs):

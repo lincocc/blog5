@@ -12,14 +12,14 @@
                 <p class="uk-comment-meta uk-margin-remove-top"></p>
                 <ul class="uk-comment-meta uk-subnav uk-margin-remove-top">
                     <li><span class="uk-link-reset">{{ comment.created_time }}</span></li>
-                    {% if level == 1 %}
+                    {% if comment.level < 3 %}
                     <li><a class="uk-link-muted uk-hidden-hover reply_button" href="#reply" data-id="{{ comment.id }}"
                                   data-username="{{ comment.user }}">Reply</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
-        {% if level == 1 %}
+        {% if comment.level == 0 %}
             <div class="uk-position-bottom-right uk-position-small"><span class="uk-link-muted">#{{ counter }}</span></div>
         {% endif %}
     </header>
