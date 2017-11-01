@@ -1,0 +1,10 @@
+{% extends 'account/base.html' %}
+{% load i18n %}
+{% block body %}
+     <div class="uk-container">
+     <ul>
+         <li><a href="{% url 'account_change_password' %}">{% trans "Change Password" %}</a></li>
+         <li><a href="{% url 'account_email' %}">{% trans "E-mail Addresses" %}</a></li>
+     </ul>
+     </div>
+{% endblock %}

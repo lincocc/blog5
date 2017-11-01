@@ -1,0 +1,23 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load uikit %}
+{% block title %}{% trans "Signup" %}{% endblock %}
+
+{% block body %}
+    <div class="uk-container">
+        <h1>{% trans "Sign Up" %}</h1>
+
+        <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+        <form class="uk-form-horizontal" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {% uikit_form form %}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            {% trans "Sign Up" as text %}
+            {% uikit_form_button text %}
+        </form>
+    </div>
+{% endblock %}

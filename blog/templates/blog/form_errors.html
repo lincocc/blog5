@@ -1,0 +1,10 @@
+{% if errors %}
+<div class="uk-margin uk-form-width-medium">
+    <div class="uk-alert-danger" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        {% for error in errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

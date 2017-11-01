@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.text import slugify
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from blog.forms import CommentForm
 from blog.models import Post, Category, Tag, Comments
@@ -27,7 +27,6 @@ class PostView(DetailView):
     def get(self, request, *args, **kwargs):
         response = super(PostView, self).get(request, *args, **kwargs)
         self.object.increase_views()
-
         return response
 
     def get_object(self, queryset=None):
@@ -90,3 +89,11 @@ class ArchiveView(ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'blog/archive.html'
+
+
+class ProfileView(TemplateView):
+    template_name = 'account/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        return context

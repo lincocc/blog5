@@ -1,6 +1,8 @@
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 from blog.feeds import LatestPostFeed
+from blog.views import ProfileView
 from . import views
 
 urlpatterns = [
@@ -10,4 +12,5 @@ urlpatterns = [
     url(r'^category/$', views.CategoryView.as_view(), name='category'),
     url(r'^archive/$', views.ArchiveView.as_view(), name='archive'),
     url(r'^latest/feed/$', LatestPostFeed()),
+    url(r'^profile/$', ProfileView.as_view(), name='profile'),
 ]
