@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework import routers
 
+from blog.api_views import UserViewSet, PostViewSet, CommentViewSet, TagViewSet, CategoryViewSet
 from blog.views import IndexView
 
 urlpatterns = [
@@ -23,4 +25,18 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', IndexView.as_view())
+]
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'posts', PostViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'tags', TagViewSet)
+router.register(r'categories', CategoryViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns += [
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

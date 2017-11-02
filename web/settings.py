@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.gitlab',
-    'mptt'
+    'mptt',
+
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
