@@ -28,9 +28,6 @@ def uikit_button(text, button_type, name=''):
 
 
 def render_field(field):
-    print(field.field.widget)
-    print(field.field.widget.attrs)
-
     widget = field.field.widget
     if isinstance(widget, CheckboxInput):
         uk_class = 'uk-checkbox'

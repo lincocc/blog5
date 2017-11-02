@@ -70,9 +70,7 @@
                     {% for year in posts_by_year %}
                         {% regroup year.list by created_time.month as posts_by_month %}
                         {% for month in posts_by_month %}
-                            <li><a href="{% url 'blog:archive' %}#
-
-                                    {{ year.grouper }}{{ month.grouper|stringformat:'02d' }}">{{ year.grouper }}年{{ month.grouper }}月
+                            <li><a href="{% url 'blog:archive' %}#{{ year.grouper }}{{ month.grouper|stringformat:'02d' }}">{{ year.grouper }}年{{ month.grouper }}月
                                 ({{ month.list|length }})</a></li>
                         {% endfor %}
                     {% endfor %}

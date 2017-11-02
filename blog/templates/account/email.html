@@ -6,6 +6,13 @@
 
 {% block body %}
     <div class="uk-container">
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <h1>{% trans "E-mail Addresses" %}</h1>
         {% if user.emailaddress_set.all %}
             <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
@@ -57,15 +64,11 @@
 
 
         <h2>{% trans "Add E-mail Address" %}</h2>
-
         <form method="post" action="{% url 'account_email' %}" class="uk-form-horizontal">
             {% csrf_token %}
-{#            {{ form.as_p }}#}
-
             {% uikit_form form %}
             {% trans "Add E-mail" as text %}
-            {% uikit_form_button text %}
-{#            <button name="action_add" type="submit">{% trans "Add E-mail" %}</button>#}
+            {% uikit_form_button text "action_add" %}
         </form>
     </div>
 {% endblock %}
