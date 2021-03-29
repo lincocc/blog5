@@ -17,7 +17,7 @@ oauthlib==2.0.4
 parso==0.1.0
 pickleshare==0.7.4
 prompt-toolkit==1.0.15
-Pygments==2.2.0
+Pygments==2.7.4
 python3-openid==3.1.0
 pytz==2017.2
 requests==2.18.4
